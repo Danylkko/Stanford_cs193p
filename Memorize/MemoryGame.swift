@@ -34,17 +34,20 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }
     
+    mutating func shuffle() {
+        cards.shuffle()
+    }
+    
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         for pairIndex in 0..<numberOfPairsOfCards {
             let content = createCardContent(pairIndex)
             cards.append(Card(content: content, id: pairIndex * 2))
             cards.append(Card(content: content, id: pairIndex * 2 + 1))
         }
-        cards.shuffle()
     }
     
     struct Card: Identifiable {
-        var isFaceUp = true
+        var isFaceUp = false
         var isMatched = false
         var isAlreadyOpened = false
         let content: CardContent
